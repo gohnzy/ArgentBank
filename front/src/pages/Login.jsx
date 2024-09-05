@@ -30,10 +30,11 @@ const LoginPage = () => {
 			try {
 				const response = await LoginCall(loginRequestBody);
 				localStorage.setItem('token', response.token);
-				console.log(localStorage);
+				console.log(response);
 				navigate('/profile');
 			} catch (error) {
-				console.error(error);
+				alert("L'adresse mail ou le mot de passe ne sont pas bons");
+				console.error(error, '( Wrong email address or password )');
 			}
 		},
 		[email, password, navigate],
