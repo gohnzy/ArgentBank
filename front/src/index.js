@@ -1,3 +1,6 @@
+import { Provider } from 'react-redux';
+import { store } from './store';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -10,12 +13,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
 	<React.StrictMode>
-		<Router>
-			<Routes>
-				<Route path="/" element={<Homepage />}></Route>
-				<Route path="/login" element={<LoginPage />}></Route>
-				<Route path="/profile" element={<ProfilePage />}></Route>
-			</Routes>
-		</Router>
+		<Provider store={store}>
+			<Router>
+				<Routes>
+					<Route path="/" element={<Homepage />}></Route>
+					<Route path="/login" element={<LoginPage />}></Route>
+					<Route path="/profile" element={<ProfilePage />}></Route>
+				</Routes>
+			</Router>
+		</Provider>
 	</React.StrictMode>,
 );

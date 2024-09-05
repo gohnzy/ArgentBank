@@ -1,18 +1,16 @@
-const state = {};
+import { configureStore } from '@reduxjs/toolkit';
 
-const reducer = (currentState, action) => {
-	const newState = [...currentState, { ...action.payload }];
-	return { ...currentState, ...newState };
+const state = {
+	value: null,
+	user: ['user 1', 'user 2'],
 };
 
-const store = window.RTK.configureStore({
-	state,
+const reducer = (currentState, action) => {
+	const newState = [...currentState.user, { ...action.payload }];
+	return { ...currentState.user, ...newState };
+};
+
+export const store = configureStore({
+	preloadedState: state,
 	reducer,
 });
-
-store.subscribe(() => {
-	const state = store.getState();
-	console.log(state);
-});
-
-store.dispatch({});
