@@ -7,8 +7,10 @@ import logo from '../img/argentBankLogo.png';
 import money from '../img/icon-money.png';
 import chat from '../img/icon-chat.png';
 import security from '../img/icon-security.png';
+import { useSelector } from 'react-redux';
 
 function App() {
+	const state = useSelector(state => state.login);
 	return (
 		<Container>
 			<nav className="main-nav">
@@ -20,7 +22,10 @@ function App() {
 					/>
 					<h1 className="sr-only">Argent Bank</h1>
 				</Link>
-				<Link to="/login" className="main-nav-item">
+				<Link
+					to={state.isAuthenticated ? '/profile' : '/login'}
+					className="main-nav-item"
+				>
 					<i className="fa fa-user-circle"></i>
 					Sign In
 				</Link>

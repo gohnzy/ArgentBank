@@ -42,6 +42,11 @@ body {
 	padding: 5px 20px;
 }
 
+.main-nav div {
+	display: flex;
+	align-items: center;
+}
+
 .main-nav a {
 	font-weight: bold;
 	color: #2c3e50;
@@ -55,9 +60,9 @@ body {
 	text-decoration: none;
 	margin-right: 0.5rem;
 }
-
 .main-nav-item:hover {
 	text-decoration: underline;
+	cursor: pointer;
 }
 
 .main-nav-logo {
@@ -68,6 +73,64 @@ body {
 .main-nav-logo-image {
 	max-width: 100%;
 	width: 200px;
+}
+
+#updateName.closed {
+	display: none;
+}
+
+#updateName.opened {
+	display: block;
+	width: 500px;
+	margin: auto;
+	padding: 30px;
+}
+
+#updateName form {
+	display: flex;
+	justify-content: space-around;
+	row-gap: 20px;
+	flex-wrap: wrap;
+}
+
+#updateName div {
+	display: flex;
+	gap: 10px;
+}
+
+#updateName input[type='text'] {
+	height: 40px;
+	width: 200px;
+	border-radius: 5px;
+	border: none;
+	padding: 10px;
+	box-sizing: border-box;
+}
+#updateName input[type='text']::placeholder {
+	color: lightgray;
+	font-weight: 500;
+	font-size: 18px;
+}
+
+#updateName input[type='submit'],
+#updateName button {
+	background-color: white;
+	border: 3px solid #847af7;
+	border-radius: 5px;
+	height: 30px;
+	width: 120px;
+	color: #847af7;
+	font-weight: 700;
+
+	font-size: 14px;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+#updateName input[type='submit']:hover {
+	background-color: lightgreen;
+}
+#updateName button:hover {
+	background-color: lightpink;
 }
 
 .hero {
