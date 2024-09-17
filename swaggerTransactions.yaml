@@ -1,0 +1,153 @@
+swagger: '2.0'
+info:
+  title: ArgentBank Transactions features API endpoints - V1
+  description: 1st proposition for transactions features' API endpoints
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1/
+schemes:
+  - http
+paths:
+  /user/profile/transactions:
+    post:
+      tags:
+        - Transactions Module
+      summary: All transactions viewer
+      description: API for Transactions viewing
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transactions' data fetched successfully
+          schema:
+            $ref: '#/definitions/ApiResponseTransactions'
+        '400':
+          description: Invalid Token
+        '500':
+          description: Internal Server Error
+  /user/profile/transactions/{id}/transaction-details:
+    post:
+      tags:
+        - Transactions Module
+      summary: Transaction details
+      description: API for Transactions details
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Transaction payload
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionDetails'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction's details fetched successfully
+          schema:
+            $ref: '#/definitions/ApiResponseTransactionDetails'
+        '400':
+          description: No details found for the transaction
+        '500':
+          description: Internal Server Error
+    patch:
+      tags:
+        - Transactions Module
+      summary: Update transaction's infos - only category and note updatable ??
+      description: API for Transactions update
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: New infos
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionUpdate'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction has been updated successfully
+          schema:
+            $ref: '#/definitions/ApiResponseTransactionDetails'
+        '400':
+          description: Invalid data sent
+        '500':
+          description: Internal Server Error
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  TransactionDetails:
+    type: object
+    description: Payload for transaction's details fetch
+    properties:
+      id:
+        type: integer
+        description: the transaction's ID
+  TransactionUpdate:
+    type: object
+    description: Payload for transaction's update - only category and note updatable ??
+    properties:
+      category:
+        type: string
+        description: the transaction's new category
+      note:
+        type: string
+        description: the transaction's new note
+  ApiResponseTransactions:
+    type: array
+    description: User's transactions list
+    items:
+      $ref: '#/definitions/ApiResponseTransaction'
+  ApiResponseTransaction:
+    type: object
+    description: One transaction
+    properties:
+      id:
+        type: integer
+        description: Transaction's ID
+      amount:
+        type: number
+        description: The amount of the transaction
+  ApiResponseTransactionDetails:
+    type: object
+    description: Transaction's details
+    properties:
+      id:
+        type: integer
+        description: Transaction's ID
+      amount:
+        type: number
+        description: The amount of the transaction
+      date:
+        type: string
+        format: date
+        description: date of the transaction
+      from:
+        type: string
+        description: Where the money comes from
+      to:
+        type: string
+        description: Where the money goes to
+      category:
+        type: string
+        description: Category selected by the user - can be modified
+      note:
+        type: string
+        description: Note by the user - can be modified
