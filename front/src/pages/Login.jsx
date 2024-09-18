@@ -8,7 +8,7 @@ import '../css/main.css';
 const LoginPage = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { status, error } = useSelector(state => state.login);
+	const { status } = useSelector(state => state.login);
 
 	const handleSubmit = e => {
 		e.preventDefault();

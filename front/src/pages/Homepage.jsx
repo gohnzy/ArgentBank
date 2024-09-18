@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import '../css/main.css';
 
@@ -7,10 +7,19 @@ import logo from '../img/argentBankLogo.png';
 import money from '../img/icon-money.png';
 import chat from '../img/icon-chat.png';
 import security from '../img/icon-security.png';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from './slices/loginSlice';
+import { resetUser } from './slices/profileSlice';
 function App() {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const user = useSelector(state => state.user.user);
 	const state = useSelector(state => state.login);
+	const handleLogout = () => {
+		dispatch(logout());
+		dispatch(resetUser());
+		navigate('/');
+	};
 	return (
 		<Container>
 			<nav className="main-nav">
@@ -22,13 +31,23 @@ function App() {
 					/>
 					<h1 className="sr-only">Argent Bank</h1>
 				</Link>
-				<Link
-					to={state.isAuthenticated ? '/profile' : '/login'}
-					className="main-nav-item"
-				>
-					<i className="fa fa-user-circle"></i>
-					Sign In
-				</Link>
+				{state.isAuthenticated ? (
+					<div>
+						<Link className="main-nav-item" to="/profile">
+							<i className="fa fa-user-circle"></i>
+							{user.firstName ?? 'Unknown'}
+						</Link>
+						<p className="main-nav-item" onClick={handleLogout}>
+							<i className="fa fa-sign-out"></i>
+							Sign Out
+						</p>
+					</div>
+				) : (
+					<Link to={'/login'} className="main-nav-item">
+						<i className="fa fa-user-circle"></i>
+						Sign In
+					</Link>
+				)}
 			</nav>
 			<main>
 				<div className="hero">

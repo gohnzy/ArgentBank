@@ -35,6 +35,7 @@ const userSlice = createSlice({
 			state.user = null;
 			state.status = 'idle';
 			state.error = null;
+			localStorage.clear();
 		},
 	},
 	extraReducers: builder => {
