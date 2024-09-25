@@ -81,26 +81,27 @@ body {
 
 #updateName.opened {
 	display: block;
-	width: 500px;
+	width: 100%;
+	max-width: 30vw;
 	margin: auto;
-	padding: 30px;
+	padding: 2vw;
 }
 
 #updateName form {
 	display: flex;
 	justify-content: space-around;
-	row-gap: 20px;
+	row-gap: 1vh;
 	flex-wrap: wrap;
 }
 
 #updateName div {
 	display: flex;
-	gap: 10px;
+	gap: 1vw;
 }
 
 #updateName input[type='text'] {
 	height: 40px;
-	width: 200px;
+	width: 13vw;
 	border-radius: 5px;
 	border: none;
 	padding: 10px;
@@ -118,12 +119,69 @@ body {
 	border: 3px solid #847af7;
 	border-radius: 5px;
 	height: 30px;
-	width: 120px;
+	width: 8vw;
 	color: #847af7;
 	font-weight: 700;
-
-	font-size: 14px;
+	font-size: 0.8rem;
 	font-family: Helvetica, Arial, sans-serif;
+}
+
+@media (max-width: 1180px) {
+	#updateName input[type='text'] {
+		width: 14vw;
+	}
+	#updateName input[type='submit'],
+	#updateName button {
+		width: 11vw;
+	}
+}
+
+@media (max-width: 850px) {
+	#updateName input[type='text'] {
+		width: 22vw;
+	}
+	#updateName input[type='submit'],
+	#updateName button {
+		width: 15vw;
+		font-size: 0.75rem;
+	}
+	#updateName.opened {
+		max-width: 60vw;
+	}
+}
+
+@media (max-width: 620px) {
+	#updateName input[type='submit'],
+	#updateName button {
+		font-size: 0.7rem;
+		width: 18vw;
+	}
+}
+
+@media (max-width: 500px) {
+	#updateName input[type='text'] {
+		width: 32vw;
+	}
+	#updateName input[type='submit'],
+	#updateName button {
+		width: 20vw;
+	}
+	#updateName.opened {
+		max-width: 80vw;
+	}
+}
+
+@media (max-width: 420px) {
+	#updateName input[type='text'] {
+		width: 38vw;
+	}
+	#updateName input[type='submit'],
+	#updateName button {
+		width: 28vw;
+	}
+	#updateName.opened {
+		max-width: 80vw;
+	}
 }
 
 #updateName input[type='submit']:hover {

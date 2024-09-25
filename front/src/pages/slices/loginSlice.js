@@ -8,7 +8,10 @@ export const loginUser = createAsyncThunk(
 	async (loginRequestBody, { rejectWithValue }) => {
 		try {
 			const response = await LoginCall(loginRequestBody);
+			console.log(response);
+
 			localStorage.setItem('token', response.body.token);
+			// localStorage.setItem('user', response.body.email)
 
 			return response;
 		} catch (error) {

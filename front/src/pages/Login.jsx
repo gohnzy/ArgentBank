@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from './slices/loginSlice';
 import logo from '../img/argentBankLogo.png';
 import '../css/main.css';
+import { useEffect } from 'react';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -25,6 +26,13 @@ const LoginPage = () => {
 			}
 		});
 	};
+
+	useEffect(() => {
+		const token = localStorage.getItem('token');
+		if (token) {
+			navigate('/profile');
+		}
+	}, [navigate]);
 
 	return (
 		<Container>

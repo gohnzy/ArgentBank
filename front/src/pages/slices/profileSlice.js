@@ -16,6 +16,8 @@ export const fetchUser = createAsyncThunk(
 		try {
 			const response = await UserDataCall(token);
 
+			localStorage.setItem('user', JSON.stringify(response));
+
 			return response;
 		} catch (error) {
 			return rejectWithValue('Failed to fetch user data');

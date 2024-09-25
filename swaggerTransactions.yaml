@@ -10,7 +10,7 @@ schemes:
   - http
 paths:
   /user/profile/transactions:
-    post:
+    get:
       tags:
         - Transactions Module
       summary: All transactions viewer
@@ -32,8 +32,8 @@ paths:
           description: Invalid Token
         '500':
           description: Internal Server Error
-  /user/profile/transactions/{id}/transaction-details:
-    post:
+  /user/profile/transactions/{id}/:
+    get:
       tags:
         - Transactions Module
       summary: Transaction details
@@ -44,7 +44,7 @@ paths:
           description: Attach Bearer JWT token
           required: true
         - in: body
-          name: body
+          name: id
           description: Transaction payload
           required: true
           schema:
@@ -55,9 +55,43 @@ paths:
         '200':
           description: Transaction's details fetched successfully
           schema:
-            $ref: '#/definitions/ApiResponseTransactionDetails'
+            $ref: '#/definitions/ApiResponseTransaction'
         '400':
           description: No details found for the transaction
+        '500':
+          description: Internal Server Error
+    post:
+      tags:
+        - Transactions Module
+      summary: Add details to transaction
+      description: API for Adding details to transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: id
+          description: Transaction id
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionDetails'
+        - in: body
+          name: payload
+          description: New details added to the transaction
+          required: true
+          schema:
+            $ref: '#/definitions/NewDetails'
+
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: New details added to the transaction
+          schema:
+            $ref: '#/definitions/ApiResponseTransactionDetails'
+        '400':
+          description: Bad request
         '500':
           description: Internal Server Error
     patch:
@@ -125,6 +159,16 @@ definitions:
       amount:
         type: number
         description: The amount of the transaction
+      date:
+        type: string
+        format: date
+        description: date of the transaction
+      from:
+        type: string
+        description: Where the money comes from
+      to:
+        type: string
+        description: Where the money goes to
   ApiResponseTransactionDetails:
     type: object
     description: Transaction's details
@@ -151,3 +195,11 @@ definitions:
       note:
         type: string
         description: Note by the user - can be modified
+  NewDetails:
+    tyype: object
+    description: New details for the transaction
+    properties:
+      category:
+        type: string
+      note:
+        type: string

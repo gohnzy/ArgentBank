@@ -13,8 +13,9 @@ import { resetUser } from './slices/profileSlice';
 function App() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const user = useSelector(state => state.user.user);
+	const user = JSON.parse(localStorage.getItem('user'));
 	const state = useSelector(state => state.login);
+	const logged = localStorage.getItem('token');
 	const handleLogout = () => {
 		dispatch(logout());
 		dispatch(resetUser());
@@ -31,7 +32,7 @@ function App() {
 					/>
 					<h1 className="sr-only">Argent Bank</h1>
 				</Link>
-				{state.isAuthenticated ? (
+				{logged ? (
 					<div>
 						<Link className="main-nav-item" to="/profile">
 							<i className="fa fa-user-circle"></i>
